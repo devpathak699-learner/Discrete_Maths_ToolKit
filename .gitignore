@@ -1,0 +1,24 @@
+# Python virtual environment (created by run.bat / run.sh)
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Node.js (the project has no dependencies, but just in case)
+node_modules/
+npm-debug.log*
+
+# Microsoft Office temporary lock files (created while a document is open)
+~$*
+
+# OS / editor clutter
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log

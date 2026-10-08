@@ -1,0 +1,25 @@
+{
+  "name": "discrete-math-toolkit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive discrete-mathematics toolkit: propositional logic, sets & relations, graph algorithms. Node.js port of the Streamlit app.",
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "discrete-mathematics",
+    "propositional-logic",
+    "truth-table",
+    "relations",
+    "dijkstra",
+    "minimum-spanning-tree"
+  ],
+  "license": "MIT"
+}

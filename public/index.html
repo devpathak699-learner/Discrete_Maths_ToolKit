@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Discrete Math Toolkit</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#129514;</text></svg>" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <span class="brand-mark">&#129514;</span>
+    <span class="brand-text">Discrete Math<br /><strong>Toolkit</strong></span>
+  </div>
+
+  <nav id="nav" aria-label="Modules">
+    <button class="nav-item is-active" data-module="logic">
+      <span class="nav-icon">&#128290;</span>
+      <span><strong>Logic Analyzer</strong><small>Truth tables &amp; equivalence</small></span>
+    </button>
+    <button class="nav-item" data-module="relation">
+      <span class="nav-icon">&#128279;</span>
+      <span><strong>Relation Checker</strong><small>Properties, POSET, matrix</small></span>
+    </button>
+    <button class="nav-item" data-module="graph">
+      <span class="nav-icon">&#128376;</span>
+      <span><strong>Graph Visualizer</strong><small>Dijkstra &amp; spanning tree</small></span>
+    </button>
+  </nav>
+
+  <div class="syllabus">
+    <h2>Syllabus coverage</h2>
+    <p><span>Unit I</span> Propositional Logic</p>
+    <p><span>Unit II</span> Sets &amp; Relations</p>
+    <p><span>Unit III</span> Graph Theory</p>
+  </div>
+</aside>
+
+<main class="content">
+
+  <!-- ================= MODULE 1: LOGIC ================= -->
+  <section class="module is-active" id="module-logic">
+    <header class="module-head">
+      <h1>&#128290; Logic Analyzer <small>Statement Calculus</small></h1>
+      <p>
+        Each expression is parsed into a Boolean formula. We then enumerate
+        <strong>all 2<sup>n</sup> truth assignments</strong> of its <em>n</em> variables and evaluate both
+        formulas on every row. Two statements are <strong>logically equivalent</strong> exactly when their
+        truth-table columns are identical in every row &mdash; that is, when <code>A &harr; B</code> is a tautology.
+      </p>
+    </header>
+
+    <div class="card">
+      <div class="field-row">
+        <label class="field">
+          <span class="field-label">Expression 1</span>
+          <input type="text" id="logic-e1" value="p -> q" spellcheck="false" autocomplete="off" />
+        </label>
+        <label class="field">
+          <span class="field-label">Expression 2</span>
+          <input type="text" id="logic-e2" value="~p | q" spellcheck="false" autocomplete="off" />
+        </label>
+      </div>
+      <div class="field-foot">
+        <label class="check">
+          <input type="checkbox" id="logic-binary" />
+          <span>Display truth values as 1 / 0 instead of T / F</span>
+        </label>
+        <details class="syntax">
+          <summary>Input syntax</summary>
+          <p>
+            <b>Variables:</b> any letters (<code>p</code>, <code>q</code>, <code>x1</code>&hellip;) &middot;
+            <b>NOT:</b> <code>~</code> <code>!</code> <code>not</code> &middot;
+            <b>AND:</b> <code>&amp;</code> <code>and</code> &middot;
+            <b>OR:</b> <code>|</code> <code>or</code> &middot;
+            <b>XOR:</b> <code>^</code> <code>xor</code> &middot;
+            <b>IMPLIES:</b> <code>-&gt;</code> <code>implies</code> &middot;
+            <b>IFF:</b> <code>&lt;-&gt;</code> <code>iff</code> &middot;
+            <b>Constants:</b> <code>True</code> <code>False</code> <code>1</code> <code>0</code><br />
+            <b>Precedence:</b> <code>~</code> &gt; <code>&amp;</code> &gt; <code>^</code> &gt; <code>|</code>
+            &gt; <code>-&gt;</code> &gt; <code>&lt;-&gt;</code>. Use parentheses to be explicit.
+          </p>
+          <p class="examples">
+            Try:
+            <button class="chip" data-e1="~(p &amp; q)" data-e2="~p | ~q">De Morgan</button>
+            <button class="chip" data-e1="p -&gt; q" data-e2="~q -&gt; ~p">Contrapositive</button>
+            <button class="chip" data-e1="p | ~p" data-e2="True">Tautology</button>
+            <button class="chip" data-e1="p &amp; (q | r)" data-e2="(p &amp; q) | (p &amp; r)">Distributive</button>
+            <button class="chip" data-e1="p -&gt; q" data-e2="q -&gt; p">Not equivalent</button>
+          </p>
+        </details>
+      </div>
+    </div>
+
+    <div id="logic-out" class="results"></div>
+  </section>
+
+  <!-- ================= MODULE 2: RELATIONS ================= -->
+  <section class="module" id="module-relation">
+    <header class="module-head">
+      <h1>&#128279; Relation Checker <small>Sets &amp; Relations</small></h1>
+      <p>
+        A relation <em>R</em> on a set <em>A</em> is a subset of <em>A</em> &times; <em>A</em>.
+        We test the defining properties directly:
+      </p>
+      <ul class="defs">
+        <li><strong>Reflexive</strong> every <code>a</code> satisfies <code>(a, a) &isin; R</code></li>
+        <li><strong>Symmetric</strong> <code>(a, b) &isin; R &rArr; (b, a) &isin; R</code></li>
+        <li><strong>Antisymmetric</strong> <code>(a, b) &isin; R</code> and <code>(b, a) &isin; R &rArr; a = b</code></li>
+        <li><strong>Transitive</strong> <code>(a, b) &isin; R</code> and <code>(b, c) &isin; R &rArr; (a, c) &isin; R</code></li>
+      </ul>
+      <p>
+        An <strong>equivalence relation</strong> is reflexive + symmetric + transitive.
+        A <strong>partial order (POSET)</strong> is reflexive + antisymmetric + transitive.
+      </p>
+    </header>
+
+    <div class="card">
+      <div class="field-row">
+        <label class="field">
+          <span class="field-label">Domain <small>comma-separated</small></span>
+          <input type="text" id="rel-domain" value="1, 2, 3, 4" spellcheck="false" autocomplete="off" />
+        </label>
+        <label class="field">
+          <span class="field-label">Relation <small>ordered pairs</small></span>
+          <input type="text" id="rel-pairs" value="(1,1), (2,2), (3,3), (4,4), (1,2), (2,1)" spellcheck="false" autocomplete="off" />
+        </label>
+      </div>
+      <div class="field-foot">
+        <p class="examples">
+          Try:
+          <button class="chip" data-domain="1, 2, 3, 4" data-pairs="(1,1), (2,2), (3,3), (4,4), (1,2), (2,1)">Equivalence</button>
+          <button class="chip" data-domain="1, 2, 3, 4" data-pairs="(1,1),(2,2),(3,3),(4,4),(1,2),(1,3),(1,4),(2,4)">POSET (divides)</button>
+          <button class="chip" data-domain="a, b, c" data-pairs="(a,b),(b,c)">Neither</button>
+          <button class="chip" data-domain="1, 2, 3" data-pairs="">Empty relation</button>
+        </p>
+      </div>
+    </div>
+
+    <div id="rel-out" class="results"></div>
+  </section>
+
+  <!-- ================= MODULE 3: GRAPHS ================= -->
+  <section class="module" id="module-graph">
+    <header class="module-head">
+      <h1>&#128376; Graph Algorithm Visualizer <small>Graph Theory</small></h1>
+      <p>
+        The edge list becomes an <strong>undirected weighted graph</strong>.
+        <strong>Dijkstra&rsquo;s algorithm</strong> greedily settles the unvisited vertex with the smallest
+        known distance and <em>relaxes</em> its neighbours; it is correct only for
+        <strong>non-negative</strong> weights. The <strong>Minimum Spanning Tree</strong>
+        (Kruskal&rsquo;s algorithm) sorts the edges by weight and adds each one unless it would close a
+        cycle &mdash; checked with union-find &mdash; producing a tree of minimum total weight that
+        connects every vertex.
+      </p>
+    </header>
+
+    <div class="card">
+      <label class="field">
+        <span class="field-label">Weighted edges <small>one per line: Source Target Weight</small></span>
+        <textarea id="graph-edges" rows="9" spellcheck="false">A B 4
+A C 2
+B C 1
+B D 5
+C D 8
+C E 10
+D E 2
+D F 6
+E F 3</textarea>
+      </label>
+      <div class="graph-controls">
+        <label class="field compact">
+          <span class="field-label">Start node</span>
+          <select id="graph-start"></select>
+        </label>
+        <label class="field compact">
+          <span class="field-label">End node</span>
+          <select id="graph-end"></select>
+        </label>
+        <div class="field compact grow">
+          <span class="field-label">Visualization mode</span>
+          <div class="segmented" id="graph-mode">
+            <button class="is-active" data-mode="original">Original graph</button>
+            <button data-mode="path">Shortest path</button>
+            <button data-mode="mst">Spanning tree</button>
+          </div>
+        </div>
+      </div>
+      <p class="hint">Lines starting with <code>#</code> are ignored. The graph is treated as undirected.</p>
+    </div>
+
+    <div id="graph-out" class="results"></div>
+  </section>
+
+</main>
+
+<script src="app.js" type="module"></script>
+</body>
+</html>

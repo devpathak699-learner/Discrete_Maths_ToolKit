@@ -1,0 +1,5 @@
+streamlit>=1.30
+pandas>=2.0
+sympy>=1.12
+networkx>=3.0
+matplotlib>=3.7
