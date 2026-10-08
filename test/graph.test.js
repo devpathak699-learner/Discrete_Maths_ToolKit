@@ -94,11 +94,11 @@ test("a triangle graph keeps the two lightest edges", () => {
   assert.deepEqual(mst.edges.map((e) => e.weight).sort(), [1, 2]);
 });
 
-test("the adjacency matrix is symmetric, with 0 for absent edges", () => {
+test("the adjacency matrix is symmetric, with ∞ for absent edges and 1 for present edges", () => {
   const nodes = ["A", "B", "C"];
   const { edges } = parseGraph("A B 4\nB C 5");
   const m = adjacencyMatrix(nodes, edges);
-  assert.deepEqual(m, [[0, 4, 0], [4, 0, 5], [0, 5, 0]]);
+  assert.deepEqual(m, [["∞", 1, "∞"], [1, "∞", 1], ["∞", 1, "∞"]]);
   for (let i = 0; i < 3; i += 1) {
     for (let j = 0; j < 3; j += 1) assert.equal(m[i][j], m[j][i]);
   }

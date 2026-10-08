@@ -455,9 +455,9 @@ function renderGraph(data, mode) {
       <div class="graph-side">${graphSidePanel(data, mode)}</div>
     </div>
     <details class="extra">
-      <summary>Show the weighted adjacency matrix</summary>
-      <p class="table-cap">Entry <span class="mono">[i][j]</span> is the weight of edge
-        <span class="mono">i&ndash;j</span>; <span class="mono">0</span> means there is no edge.
+      <summary>Show the adjacency matrix</summary>
+      <p class="table-cap">Entry <span class="mono">[i][j]</span> is <span class="mono">1</span> when there is an edge between
+        <span class="mono">i&ndash;j</span>; <span class="mono">&infin;</span> means there is no edge.
         The matrix is symmetric because the graph is undirected.</p>
       <div class="table-wrap">
         <table><thead><tr><th class="corner">&nbsp;</th>${adjHead}</tr></thead>

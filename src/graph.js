@@ -243,14 +243,15 @@ export function connectedComponents(nodes, edges) {
   return new Set(nodes.map((n) => sets.find(n))).size;
 }
 
-/** Weighted adjacency matrix; 0 means "no edge". Symmetric, since undirected. */
+/** Adjacency matrix: 1 if edge exists, "∞" if no edge. Symmetric, since undirected. */
 export function adjacencyMatrix(nodes, edges) {
-  const lookup = new Map();
-  for (const { u, v, weight } of edges) {
-    lookup.set(JSON.stringify([u, v]), weight);
-    lookup.set(JSON.stringify([v, u]), weight);
+  const connected = new Set();
+  for (const { u, v } of edges) {
+    connected.add(JSON.stringify([u, v].sort()));
   }
-  return nodes.map((a) => nodes.map((b) => lookup.get(JSON.stringify([a, b])) ?? 0));
+  return nodes.map((a) =>
+    nodes.map((b) => (connected.has(JSON.stringify([a, b].sort())) ? 1 : "∞"))
+  );
 }
 
 // --------------------------------------------------------------------------
@@ -326,6 +327,6 @@ export function analyzeGraph({ edges: edgeText = "", start = null, end = null } 
     hasNegative,
     shortestPath,
     mst,
-    adjacency: adjacencyMatrix(nodes, edges).map((row) => row.map(formatWeight)),
+    adjacency: adjacencyMatrix(nodes, edges),
   };
 }

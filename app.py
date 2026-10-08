@@ -654,10 +654,10 @@ def render_graph_module():
             st.caption("🔴 edges in the MST")
 
     # ---- Matrix view (supports the 'Graphs & Matrices' syllabus topic) --------------
-    with st.expander("Show weighted adjacency matrix of the graph"):
-        st.markdown("Entry `[i][j]` is the weight of edge `i–j`; `0` means no edge. The matrix is symmetric because the graph is undirected.")
-        adj = nx.to_pandas_adjacency(G, nodelist=nodes, weight="weight")
-        adj = adj.map(fmt_weight) if hasattr(adj, "map") else adj.applymap(fmt_weight)
+    with st.expander("Show adjacency matrix of the graph"):
+        st.markdown("Entry `[i][j]` is `1` when there is an edge between `i` and `j`, and `∞` when there is no edge. The matrix is symmetric because the graph is undirected.")
+        matrix_data = [[1 if G.has_edge(u, v) else "∞" for v in nodes] for u in nodes]
+        adj = pd.DataFrame(matrix_data, index=nodes, columns=nodes)
         st.dataframe(adj)
 
 
